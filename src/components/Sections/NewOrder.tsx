@@ -129,11 +129,16 @@ type NewOrderProps = {
 const NewOrder = ({  products, categories, orderHistory, setOrderHistory }: NewOrderProps) => {
     const [newOrder, setNewOrder] = useState<Order>({
         tableNumber: 0,
+        status: 'unpaid',
+        ticketPath: '',
+        paymentMethod: 'efectivo',
         items: [],
         total: 0,
         id: orderHistory.length + 1,
         date: new Date().toISOString().split('T')[0],
         itemCount: 0,
+        totalPaid: 0,
+        change: 0,
     })
 
 
@@ -223,14 +228,20 @@ const NewOrder = ({  products, categories, orderHistory, setOrderHistory }: NewO
             )
         )
     }
-    const handleCompleteOrder = () => {
-        const newOrderHistory = {
+    const handleCompleteOrder = (newOrder: Order) => {
+        debugger
+        const newOrderHistory: Order = {
             id: orderHistory.length + 1,
             date: new Date().toISOString().split('T')[0],
             total: newOrder.total,
             itemCount: newOrder.items.reduce((sum: number, item: { quantity: number }) => sum + item.quantity, 0),
             tableNumber: newOrder.tableNumber,
             items: newOrder.items, // Include the items here to match the Order type
+            status: newOrder.status,
+            paymentMethod: newOrder.paymentMethod,
+            totalPaid: newOrder.totalPaid,
+            change: newOrder.change,
+            ticketPath: `/home/mks/WebStormProjects/tpv/tickets/ticket-${newOrder.id}_${new Date().toISOString().split('T')[0]}.pdf`,
         }
         setOrderHistory([...orderHistory, newOrderHistory])
         setNewOrder({
@@ -239,7 +250,12 @@ const NewOrder = ({  products, categories, orderHistory, setOrderHistory }: NewO
             total: 0,
             id: orderHistory.length + 2, // Make sure the id is unique for the new order
             date: new Date().toISOString().split('T')[0],
-            itemCount: 0
+            itemCount: 0,
+            status: 'unpaid',
+            ticketPath: '',
+            paymentMethod: 'efectivo',
+            totalPaid: 0,
+            change: 0,
         })
         setPaymentMethod('efectivo')
         setCashAmount('')
@@ -281,7 +297,7 @@ const NewOrder = ({  products, categories, orderHistory, setOrderHistory }: NewO
             <div className="flex flex-col h-[calc(100%-40px)] overflow-y-hidden">
                 <Card className="flex-grow flex flex-col h-[calc(100%-40px)] overflow-y-auto">
                     <CardHeader>
-                        <CardTitle>Pedido Actual</CardTitle>
+                        <CardTitle>Pedido Actual para la mesa {newOrder.tableNumber === 0 ? 'Barra' : newOrder.tableNumber}</CardTitle>
                     </CardHeader>
                     <CardContent className="flex-grow overflow-auto">
                         <OrderTable

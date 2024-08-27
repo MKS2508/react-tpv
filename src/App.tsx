@@ -22,19 +22,30 @@ import OrderHistory from "@/components/Sections/OrderHistory.tsx";
 import SectionHeader from "@/components/Sections/SectionHeader.tsx";
 import Products from "@/components/Sections/Products.tsx";
 import NewOrder from "@/components/Sections/NewOrder.tsx";
-import Order from "@/models/Order.ts";
+import Order, {OrderItem} from "@/models/Order.ts";
 import Product from "@/models/Product.ts";
+import {Toaster} from "@/components/ui/toaster.tsx";
 
 
 export default function Component() {
+
+    const exampleOrderItemsBeer: OrderItem[] = [
+        {id: 1, name: 'Botellín de cerveza sin alcohol', price: 2.50, quantity: 2, brand: 'Estrella Damm', icon: <BeerIcon/>, iconType: 'preset', category: 'Cervezas', uploadedImage: null, selectedIcon: 'BeerIcon'},
+        {id: 2, name: 'Botellín de cerveza volldam ', price: 2.20, quantity: 1, brand: 'Voll Damm', icon: <BeerIcon/>, iconType: 'preset', category: 'Cervezas', uploadedImage: null, selectedIcon: 'BeerIcon'},
+        {id: 3, name: 'Botellín de cerveza sin gluten ', price: 2.50, quantity: 4, brand: 'Estrella Damm', icon: <BeerIcon/>, iconType: 'preset', category: 'Cervezas', uploadedImage: null, selectedIcon: 'BeerIcon'},
+    ]
+
     const [activeSection, setActiveSection] = useState('home')
     const [isDarkMode, setIsDarkMode] = useState(false)
     const [isSidebarOpen, setIsSidebarOpen] = useState(true)
     const [prevSection, setPrevSection] = useState('home')
     const [orderHistory, setOrderHistory] = useState<Order[]>([
-        {id: 1, date: '2023-06-01', total: 15.50, itemCount: 3, tableNumber: 2, items: []},
-        {id: 2, date: '2023-06-02', total: 22.00, itemCount: 5, tableNumber: 0, items: []},
-        {id: 3, date: '2023-06-03', total: 18.50, itemCount: 4, tableNumber: 3, items: []},
+        {id: 1, status: 'paid', date: '2023-06-01', total: exampleOrderItemsBeer.reduce((acc, item) => acc + item.price * item.quantity, 0), itemCount: exampleOrderItemsBeer.length, tableNumber: 2, items: exampleOrderItemsBeer, paymentMethod: 'tarjeta', ticketPath: '/home/mks/WebstormProjects/tpv/src/assets/tickets/ticket1.pdf', change: 0, totalPaid: 0 + exampleOrderItemsBeer.reduce((acc, item) => acc + item.price * item.quantity, 0)},
+        {id: 2, status: 'paid', date: '2023-06-01', total: exampleOrderItemsBeer.reduce((acc, item) => acc + item.price * item.quantity, 0), itemCount: exampleOrderItemsBeer.length, tableNumber: 2, items: exampleOrderItemsBeer, paymentMethod: 'efectivo', ticketPath: '', change: 2.50, totalPaid: 2.50 + exampleOrderItemsBeer.reduce((acc, item) => acc + item.price * item.quantity, 0)},
+        {id: 3, status: 'unpaid', date: '2023-06-02', total: exampleOrderItemsBeer.reduce((acc, item) => acc + item.price * item.quantity, 0), itemCount: exampleOrderItemsBeer.length, tableNumber: 2, items: exampleOrderItemsBeer, paymentMethod: 'tarjeta', ticketPath: '', change: 0, totalPaid: 0 + exampleOrderItemsBeer.reduce((acc, item) => acc + item.price * item.quantity, 0)},
+        {id: 4, status: 'unpaid', date: '2023-06-02', total: exampleOrderItemsBeer.reduce((acc, item) => acc + item.price * item.quantity, 0), itemCount: exampleOrderItemsBeer.length, tableNumber: 2, items: exampleOrderItemsBeer, paymentMethod: 'efectivo', ticketPath: '', change: 2.50, totalPaid: 2.50 + exampleOrderItemsBeer.reduce((acc, item) => acc + item.price * item.quantity, 0)},
+        {id: 5, status: 'canceled', date: '2023-06-03', total: exampleOrderItemsBeer.reduce((acc, item) => acc + item.price * item.quantity, 0), itemCount: exampleOrderItemsBeer.length, tableNumber: 2, items: exampleOrderItemsBeer, paymentMethod: 'efectivo', ticketPath: '', change: 2.50, totalPaid: 2.50 + exampleOrderItemsBeer.reduce((acc, item) => acc + item.price * item.quantity, 0)},
+        {id: 6, status: 'inProgress', date: '2023-06-03', total: exampleOrderItemsBeer.reduce((acc, item) => acc + item.price * item.quantity, 0), itemCount: exampleOrderItemsBeer.length, tableNumber: 2, items: exampleOrderItemsBeer, paymentMethod: 'efectivo', ticketPath: '', change: 2.50, totalPaid: 2.50 + exampleOrderItemsBeer.reduce((acc, item) => acc + item.price * item.quantity, 0)},
     ])
 
     const productsToProdutsWithIcons = productsJson.map(product => ({
@@ -123,7 +134,7 @@ export default function Component() {
     return (
         <div className="flex h-screen w-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
             {/* Sidebar */}
-
+            <Toaster />
             <Sidebar
                 isSidebarOpen={isSidebarOpen}
                 activeSection={activeSection}

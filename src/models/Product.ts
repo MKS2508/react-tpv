@@ -6,7 +6,7 @@ export default interface Product {
     price: number
     category: string
     brand: string
-    icon: React.ReactElement,
+    icon: React.ReactElement
     iconType: string
     selectedIcon: string
     uploadedImage: File | null
