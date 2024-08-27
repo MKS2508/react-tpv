@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "name": "Licores",
+    "description": "Bebidas alcohólicas",
+    "icon": "WineIcon"
+  },
+  {
+    "id": 2,
+    "name": "Golosinas",
+    "description": "Dulces y chucherías",
+    "icon": "BeerIcon"
+  },
+  {
+    "id": 3,
+    "name": "Refrescos",
+    "description": "Bebidas sin alcohol",
+    "icon": "UtensilsIcon"
+  },
+  {
+    "id": 4,
+    "name": "Cafés",
+    "description": "Variedades de café",
+    "icon": "CoffeeIcon"
+  },
+  {
+    "id": 5,
+    "name": "Cervezas",
+    "description": "Cervezas y similares",
+    "icon": "BeerIcon"
+  },
+  {
+    "id": 6,
+    "name": "Tapas",
+    "description": "Pequeñas porciones de comida",
+    "icon": "GlassWaterIcon"
+  },
+  {
+    "id": 7,
+    "name": "Postres",
+    "description": "Dulces para después de la comida",
+    "icon": "CandyIcon"
+  }
+]
