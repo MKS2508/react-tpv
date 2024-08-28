@@ -11,10 +11,10 @@ const SidebarToggleButton = ({ isSidebarOpen, toggleSidebar }: SidebarToggleButt
         <Button
             variant="outline"
             size="icon"
-            className="absolute top-4 left-0 z-10 bg-white dark:bg-gray-800"
+            className="absolute top-4 left-0 z-10 p-0 bg-white dark:bg-gray-800"
             onClick={toggleSidebar}
         >
-            {isSidebarOpen ? <ChevronLeftIcon className="h-4 w-4" /> : <ChevronRightIcon className="h-4 w-4" />}
+            {isSidebarOpen ? <ChevronLeftIcon className="h-12 w-12" /> : <ChevronRightIcon className="h-12 w-12" />}
         </Button>
     );
 };

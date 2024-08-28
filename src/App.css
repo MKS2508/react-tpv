@@ -29,6 +29,20 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+    --dark: #111111;
+    --sun: #ffd700;
+    --sun-shadow: #987416;
+    --moon: #dddddd;
+    --moon-shadow: #808080;
+    --star: #ffffff;
+    --cloud: #ffffff;
+    --crater: #535370;
+    --shadow-01: #80808077;
+    --shadow-02: #ffffff22;
+    --shadow-03: #555555;
+    --white: #ffffff;
+    --background-day: linear-gradient(skyblue, cadetblue);
+    --background-night: linear-gradient(-45deg, #222, #000030);
   }
 
   .dark {
@@ -67,6 +81,7 @@
     @apply bg-background text-foreground;
   }
 }
+
 .button-light {
   background-color: #fff; /* Fondo blanco para modo claro */
   color: #333; /* Texto oscuro para modo claro */
