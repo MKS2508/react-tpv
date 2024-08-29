@@ -52,8 +52,8 @@ export default function Component() {
     useEffect(() => {
         if (users.length === 0) {
             setUsers([
-                { id: 1, name: 'Germán', profilePicture: '/public/panxo.svg', pin: "1234" },
-                { id: 2, name: 'Marta', profilePicture: '/public/nuka.svg', pin: "1234" }
+                { id: 1, name: 'Germán', profilePicture: '/panxo.svg', pin: "1234" },
+                { id: 2, name: 'Marta', profilePicture: '/nuka.svg', pin: "1234" }
             ])
         }
 

@@ -58,7 +58,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             variants={sidebarVariants}
             className="relative h-full"
         >
-            <Card className={`h-[calc(100vh-50px)] mt-6 mb-6 bg-white dark:bg-gray-800 ${isSidebarOpen ? 'rounded-r-3xl' : 'rounded-r-lg'} shadow-xl overflow-hidden border-r border-gray-200 dark:border-gray-700 ${isSidebarOpen ? 'w-auto' : 'w-24'}`}>
+            <Card className={`h-[calc(100vh-50px)] mt-6 mb-6 bg-white dark:bg-gray-800 rounded-r-3xl shadow-xl overflow-hidden border-r border-gray-200 dark:border-gray-700 ${isSidebarOpen ? 'w-auto' : 'w-24'}`}>
                 <CardContent className="p-2 flex flex-col h-[calc(100%-40px)] overflow-hidden">
                     <div className="flex items-center justify-center mt-6 mb-6">
                         <img src={logo} alt="El Haido Logo" className={`${isSidebarOpen ? 'h-36 w-48' : 'h-12 w-12'} transition-all duration-200`}/>

@@ -107,7 +107,7 @@ const Login = ({ users, onLogin }: LoginProps) => {
     if (isLoading) {
         return (
             <div className="h-screen w-screen bg-cover bg-center flex items-center justify-center"
-                 style={{ backgroundImage: "url('/src/assets/wallpaper.jpeg')" }}>
+                 style={{ backgroundImage: "url('/wallpaper.jpeg')" }}>
                 <Loader2 className="animate-spin text-blue-500 bg-white bg-opacity-20 rounded-full w-16 h-16" />
             </div>
         )
@@ -115,7 +115,7 @@ const Login = ({ users, onLogin }: LoginProps) => {
 
     return (
         <div className="h-screen w-screen bg-cover bg-center flex flex-col items-center justify-center"
-             style={{ backgroundImage: "url('/src/assets/wallpaper.jpeg')" }}>
+             style={{ backgroundImage: "url('/wallpaper.jpeg')" }}>
             <img src="/src/assets/logo.svg" alt="El Haido Logo"
                  className="w-64 h-64 mb-4 flex items-center justify-center text-center"/>
 
