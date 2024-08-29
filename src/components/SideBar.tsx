@@ -7,7 +7,7 @@ import logo from '../assets/logo.svg';
 import User from "@/models/User";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LogOut } from "lucide-react";
-import {MoonSunSwitch} from "@/components/MoonSunSwitch.tsx";
+import MoonSunSwitch from "@/components/MoonSunSwitch.tsx";
 
 type SidebarProps = {
     isSidebarOpen: boolean,
@@ -58,7 +58,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             variants={sidebarVariants}
             className="relative h-full"
         >
-            <Card className={`h-full mt-6 mb-6 bg-white dark:bg-gray-800 ${isSidebarOpen ? 'rounded-r-3xl' : 'rounded-r-lg'} shadow-xl overflow-hidden border-r border-gray-200 dark:border-gray-700`}>
+            <Card className={`h-[calc(100vh-50px)] mt-6 mb-6 bg-white dark:bg-gray-800 ${isSidebarOpen ? 'rounded-r-3xl' : 'rounded-r-lg'} shadow-xl overflow-hidden border-r border-gray-200 dark:border-gray-700 ${isSidebarOpen ? 'w-auto' : 'w-24'}`}>
                 <CardContent className="p-2 flex flex-col h-[calc(100%-40px)] overflow-hidden">
                     <div className="flex items-center justify-center mt-6 mb-6">
                         <img src={logo} alt="El Haido Logo" className={`${isSidebarOpen ? 'h-36 w-48' : 'h-12 w-12'} transition-all duration-200`}/>
@@ -108,10 +108,10 @@ const Sidebar: React.FC<SidebarProps> = ({
                                         <AnimatePresence>
                                             {isSidebarOpen && (
                                                 <motion.span
-                                                    initial={{ opacity: 0, width: 0 }}
-                                                    animate={{ opacity: 1, width: 'auto' }}
-                                                    exit={{ opacity: 0, width: 0 }}
-                                                    transition={{ duration: 0.2 }}
+                                                    initial={{opacity: 0, width: 0}}
+                                                    animate={{opacity: 1, width: 'auto'}}
+                                                    exit={{opacity: 0, width: 0}}
+                                                    transition={{duration: 0.2}}
                                                     className="text-lg whitespace-nowrap"
                                                 >
                                                     {item.label}
@@ -121,25 +121,22 @@ const Sidebar: React.FC<SidebarProps> = ({
                                     </div>
                                 </Button>
                             ))}
+                            <div className="flex items-center justify-between">
+                                <MoonSunSwitch isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} size="md"/>
+                            </div>
                         </nav>
                     </ScrollArea>
 
                     <AnimatePresence>
                         {isSidebarOpen && (
                             <motion.div
-                                initial={{ opacity: 0, height: 0 }}
+                                initial={{opacity: 0, height: 0 }}
                                 animate={{ opacity: 1, height: 'auto' }}
                                 exit={{ opacity: 0, height: 0 }}
                                 transition={{ duration: 0.2 }}
                                 className="mt-4 space-y-2"
                             >
-                                <div className="flex items-center justify-between">
-                                    <MoonSunSwitch className=" w-20"
-                                        checked={isDarkMode}
-                                        onCheckedChange={toggleDarkMode}
-                                        aria-label="Toggle dark mode"
-                                    />
-                                </div>
+
 
                                 <Button
                                     variant="outline"

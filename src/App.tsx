@@ -182,7 +182,7 @@ export default function Component() {
                     animate="center"
                     exit="exit"
                     transition={pageTransition}
-                    className="absolute inset-0"
+                    className="absolute inset-0 bg-transparent"
                 >
                     <Login users={users} onLogin={setSelectedUser}/>
                 </motion.div>
@@ -213,7 +213,7 @@ export default function Component() {
                             animate="center"
                             exit="exit"
                             transition={pageTransition}
-                            className="absolute inset-0"
+                            className="absolute inset-0 rounded-3xl overflow-hidden"
                         >
                             <Card className="h-full bg-white dark:bg-gray-800 rounded-3xl shadow-xl overflow-hidden">
                                 <CardContent className="p-6 h-full overflow-y-hidden">
