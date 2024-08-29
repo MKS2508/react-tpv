@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import User from "@/models/User.ts";
 import { Button } from "@/components/ui/button.tsx";
-import { Pencil, PlusCircle, Trash2, Printer, DollarSign, ShieldCheck  } from "lucide-react";
+import { Pencil, PlusCircle, Trash2, DollarSign, ShieldCheck  } from "lucide-react";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog.tsx";
 import { Label } from "@/components/ui/label.tsx";
 import { Input } from "@/components/ui/input.tsx";
@@ -10,6 +10,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card.t
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs.tsx";
 import { Switch } from "@/components/ui/switch.tsx";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select.tsx";
+import {ThermalPrinterServiceOptions} from "@/models/ThermalPrinter.ts";
+import ThermalPrinterSettings from "@/components/ThermalPrinterSettings.tsx";
+import {toast} from "@/components/ui/use-toast.ts";
 
 type SettingsPanelProps = {
     isSidebarOpen: boolean;
@@ -19,9 +22,11 @@ type SettingsPanelProps = {
     setUsers: (users: User[]) => void;
     isDarkMode: boolean;
     toggleDarkMode: () => void;
+    thermalPrinterOptions: ThermalPrinterServiceOptions;
+    handleThermalPrinterOptionsChange: (options: ThermalPrinterServiceOptions) => void;
 }
 
-const SettingsPanel: React.FC<SettingsPanelProps> = ({ selectedUser, setSelectedUser, users, setUsers, isSidebarOpen, isDarkMode, toggleDarkMode }) => {
+const SettingsPanel: React.FC<SettingsPanelProps> = ({ selectedUser, setSelectedUser, users, setUsers, isSidebarOpen, isDarkMode, toggleDarkMode, thermalPrinterOptions, handleThermalPrinterOptionsChange }) => {
     const [isUserDialogOpen, setIsUserDialogOpen] = useState(false);
     const [editingUser, setEditingUser] = useState<User | null>(null);
     const [newUser, setNewUser] = useState<Partial<User>>({ name: '', profilePicture: '', pin: '' });
@@ -59,11 +64,36 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ selectedUser, setSelected
         }
     }
 
+    function handlePrintTestTicket() {
+        console.log("Printing test ticket...");
+    }
+
+
+
+    const handleTestConnection = async () => {
+        console.log("Testing connection...");
+        const result = false;
+        if (result) {
+            toast({
+                title: "Conexión exitosa",
+                description: "La conexión se ha establecido con éxito.",
+                duration: 3000,
+            });
+        } else {
+            toast({
+                title: "Error de conexión",
+                description: "No se ha podido establecer la conexión. Por favor, revise los ajustes de la impresora.",
+                duration: 3000,
+            });
+        }
+        return result;
+    }
+
+
     return (
-        <div className={`space-y-6 p-4 ${isSidebarOpen ? 'ml-64' : ''} bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100`}>
-            <h2 className="text-3xl font-bold mb-6">Ajustes</h2>
+        <div className={`space-y-0 p-0 ${isSidebarOpen ? 'ml-1' : ''} bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100`}>
             <Tabs value={activeTab} onValueChange={setActiveTab}>
-                <TabsList className="mb-4">
+                <TabsList className="mb-0">
                     <TabsTrigger value="general">General</TabsTrigger>
                     <TabsTrigger value="users">Usuarios</TabsTrigger>
                     <TabsTrigger value="printing">Impresión</TabsTrigger>
@@ -144,10 +174,10 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ selectedUser, setSelected
                                             </div>
                                             <div>
                                                 <Button variant="ghost" size="sm" onClick={() => handleEditUser(user)}>
-                                                    <Pencil className="h-4 w-4" />
+                                                    <Pencil className="h-4 w-4 text-gray-300 dark:text-gray-500" />
                                                 </Button>
                                                 <Button variant="ghost" size="sm" onClick={() => handleDeleteUser(user.id)}>
-                                                    <Trash2 className="h-4 w-4" />
+                                                    <Trash2 className="h-4 w-4 text-gray-300 dark:text-gray-500" />
                                                 </Button>
                                             </div>
                                         </div>
@@ -166,26 +196,12 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ selectedUser, setSelected
                             <CardTitle>Configuración de Impresión</CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                            <div className="flex items-center justify-between">
-                                <Label htmlFor="printerSelect">Impresora Seleccionada</Label>
-                                <Select defaultValue="default">
-                                    <SelectTrigger className="w-[250px]">
-                                        <SelectValue placeholder="Selecciona una impresora" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="default">Impresora Predeterminada</SelectItem>
-                                        <SelectItem value="kitchen">Impresora de Cocina</SelectItem>
-                                        <SelectItem value="bar">Impresora de Bar</SelectItem>
-                                    </SelectContent>
-                                </Select>
-                            </div>
-                            <div className="flex items-center justify-between">
-                                <Label htmlFor="ticketPath">Ruta de Guardado de Tickets</Label>
-                                <Input id="ticketPath" placeholder="/ruta/de/guardado/tickets" className="w-[250px]" />
-                            </div>
-                            <Button className="w-full">
-                                <Printer className="mr-2 h-4 w-4" /> Imprimir Ticket de Prueba
-                            </Button>
+                            <ThermalPrinterSettings
+                                options={thermalPrinterOptions}
+                                onOptionsChange={handleThermalPrinterOptionsChange}
+                                onPrintTestTicket={handlePrintTestTicket}
+                                onTestConnection={handleTestConnection}
+                            />
                         </CardContent>
                     </Card>
                 </TabsContent>

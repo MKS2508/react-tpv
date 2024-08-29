@@ -1,6 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@font-face {
+  font-family: "Cascadia Code Nerd Font";
+  font-style: normal;
+  font-weight: 200;
+  src: url('assets/fonts/CaskaydiaCoveNerdFont-Regular.ttf') format('truetype');
+  font-variant-ligatures: none;
+}
 
 @layer base {
   :root {
@@ -82,12 +89,6 @@
   }
 }
 
-.button-light {
-  background-color: #fff; /* Fondo blanco para modo claro */
-  color: #333; /* Texto oscuro para modo claro */
-}
-
-.button-dark {
-  background-color: #333; /* Fondo oscuro para modo oscuro */
-  color: #fff; /* Texto blanco para modo oscuro */
+body {
+  font-family: "Cascadia Code Nerd Font", sans-serif;
 }

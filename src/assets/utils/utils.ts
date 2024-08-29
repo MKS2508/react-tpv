@@ -1,4 +1,5 @@
 import Order from "@/models/Order.ts";
+import ThermalPrinterService, {ThermalPrinterServiceOptions} from "@/models/ThermalPrinter.ts";
 
 export const renderTicketPreview = (order: Order) => {
     return `
@@ -22,3 +23,19 @@ Cambio: ${order.change.toFixed(2)}€`
 --------------------------------
         `
 }
+
+export const connectToThermalPrinter = async (printerOptions: ThermalPrinterServiceOptions): Promise<ThermalPrinterService | null> => {
+    const printer = new ThermalPrinterService(printerOptions);
+
+    try {
+        const isConnected = await printer.isConnected();
+        if (!isConnected) {
+            throw new Error("La impresora no está conectada.");
+
+        }
+        return printer;
+    } catch (error) {
+        console.error("Error al conectar la impresora:", error);
+        return null;
+    }
+};

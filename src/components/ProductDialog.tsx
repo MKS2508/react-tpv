@@ -28,7 +28,7 @@ const ProductDialog: React.FC<ProductDialogProps> = ({
     return (
         <>
             {editingProduct && (
-                <Dialog open={!!editingProduct} onOpenChange={onCancel}>
+                <Dialog open={!!editingProduct} onOpenChange={onCancel} >
                     <DialogContent>
                         <DialogHeader>
                             <DialogTitle>{editingProduct.id ? 'Editar Producto' : 'Añadir Producto'}</DialogTitle>

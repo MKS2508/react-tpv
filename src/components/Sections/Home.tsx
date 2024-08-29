@@ -64,9 +64,9 @@ const PieChartCard = ({ title, data }: PieChartCardProps) => (
 
 
 type HomeProps = {
-    uerName: string,
+    userName: string,
 }
-const Home = ({uerName}: HomeProps) => {
+const Home = ({userName}: HomeProps) => {
 
 
     // Sample data for statistics and charts
@@ -90,7 +90,7 @@ const Home = ({uerName}: HomeProps) => {
 
     return (
                 <div className="space-y-6">
-                    <h2 className="text-2xl font-semibold">¡Hola {uerName}!</h2>
+                    <h2 className="text-2xl font-semibold">¡Hola {userName}!</h2>
                     <p className="text-lg">Bienvenido de nuevo al TPV de El Haido. Aquí tienes un resumen de las estadísticas totales:</p>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                         <StatCard title="Ventas Totales" value={`${stats.totalSales.toFixed(2)}€`} Icon={DollarSignIcon} />

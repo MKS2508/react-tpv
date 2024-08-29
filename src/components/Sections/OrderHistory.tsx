@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import  {useCallback, useMemo, useState} from 'react';
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import Order from "@/models/Order.ts";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -16,11 +16,11 @@ import PaymentModal from "@/components/PaymentModal.tsx";
 
 interface OrderHistoryProps {
     orderHistory: Order[];
-    setOrderHistory: React.Dispatch<React.SetStateAction<Order[]>>;
-    setActiveSection: React.Dispatch<React.SetStateAction<string>>;
-    setSelectedOrder: React.Dispatch<React.SetStateAction<Order | null>>;
+    setOrderHistory: (orders: Order[]) => void;
+    setActiveSection: (section: string) => void;
     selectedOrder: Order | null;
-    setSelectedOrderId: React.Dispatch<React.SetStateAction<number | null>>;
+    setSelectedOrder: (order: Order | null) => void;
+    setSelectedOrderId: (orderId: number | null) => void;
 }
 
 export default function Component({ orderHistory, setOrderHistory, setActiveSection, selectedOrder, setSelectedOrder, setSelectedOrderId }: OrderHistoryProps) {
@@ -30,7 +30,37 @@ export default function Component({ orderHistory, setOrderHistory, setActiveSect
     const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
     const [paymentMethod, setPaymentMethod] = useState('efectivo');
     const [cashAmount, setCashAmount] = useState('');
+    const [showTicketDialog, setShowTicketDialog] = useState(false);
 
+    const handleCompleteOrder = useCallback((completedOrder: Order) => {
+        setOrderHistory(
+            orderHistory.map(order =>
+                order.id === completedOrder.id ? completedOrder : order
+            )
+        );
+        toast({
+            title: "Payment Confirmed",
+            description: `Payment confirmed for order: ${completedOrder.id}`,
+        });
+
+        setShowTicketDialog(true); // Show ticket dialog after payment confirmation
+    }, [setOrderHistory]);
+
+    const handleTicketPrintingComplete = useCallback((shouldPrintTicket: boolean) => {
+        setShowTicketDialog(false);
+        setIsPaymentModalOpen(false);
+        setIsDialogOpen(false);
+
+        if (shouldPrintTicket) {
+            handlePrintTicket();
+        } else {
+            toast({
+                title: "Order Completed",
+                description: "Order completed without printing ticket.",
+                duration: 3000,
+            });
+        }
+    }, []);
     const sortedAndFilteredOrders = useMemo(() => {
         let filteredOrders = orderHistory
         if (filterStatus !== 'all') {
@@ -61,22 +91,10 @@ export default function Component({ orderHistory, setOrderHistory, setActiveSect
         }
     };
 
-    const handleCompleteOrder = (completedOrder: Order) => {
-        setOrderHistory(prevHistory =>
-            prevHistory.map(order =>
-                order.id === completedOrder.id ? completedOrder : order
-            )
-        );
-        toast({
-            title: "Payment Confirmed",
-            description: `Payment confirmed for order: ${completedOrder.id}`,
-        });
-        setIsPaymentModalOpen(false);
-        setIsDialogOpen(false);
-    };
 
     const handlePrintTicket = () => {
         console.log('Printing ticket for order:', selectedOrder?.id)
+        setShowTicketDialog(true);
     }
 
     const handleContinueOrder = () => {
@@ -282,6 +300,9 @@ export default function Component({ orderHistory, setOrderHistory, setActiveSect
                     setPaymentMethod={setPaymentMethod}
                     newOrder={selectedOrder}
                     handleCompleteOrder={handleCompleteOrder}
+                    showTicketDialog={showTicketDialog}
+                    setShowTicketDialog={setShowTicketDialog}
+                    handleTicketPrintingComplete={handleTicketPrintingComplete}
                 />
             )}
         </div>

@@ -150,8 +150,8 @@ const Login = ({ users, onLogin }: LoginProps) => {
                                     className="flex flex-col items-center"
                                 >
                                     <Avatar
-                                        className="w-20 h-20 cursor-pointer border-2 border-white hover:border-blue-400 transition-colors">
-                                        <AvatarImage src={user.profilePicture} alt={user.name}/>
+                                        className="w-20 h-20 cursor-pointer border-2 border-white hover:border-blue-400 transition-colors overflow-hidden"
+                                    ><AvatarImage className="rounded-full" src={user.profilePicture} alt={user.name}/>
                                         <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
                                     </Avatar>
                                     <p className="mt-2 text-sm">{user.name}</p>
