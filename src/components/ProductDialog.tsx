@@ -1,20 +1,20 @@
-import React from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import ProductForm from './ProductForm';
-import CategoryForm from './CategoryForm';
-import Product from "@/models/Product.ts";
-import Category from "@/models/Category.ts";
+import React from 'react'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
+import { Button } from "@/components/ui/button"
+import ProductForm from './ProductForm'
+import CategoryForm from './CategoryForm'
+import Product from "@/models/Product"
+import Category from "@/models/Category"
 
 interface ProductDialogProps {
-    editingProduct?: Product | null;
-    editingCategory?: Category | null;
-    onProductSave: (product: Product) => void;
-    onCategorySave: (category: Category) => void;
-    onProductDelete: (id: number) => void;
-    onCategoryDelete: (id: number) => void;
-    onCancel: () => void;
-    categories: Category[];
-    products: Product[];
+    editingProduct?: Product | null
+    editingCategory?: Category | null
+    onProductSave: (product: Product) => void
+    onCategorySave: (category: Category) => void
+    onProductDelete: (id: number) => void
+    onCategoryDelete: (id: number) => void
+    onCancel: () => void
+    categories: Category[]
 }
 
 const ProductDialog: React.FC<ProductDialogProps> = ({
@@ -22,13 +22,15 @@ const ProductDialog: React.FC<ProductDialogProps> = ({
                                                          editingCategory,
                                                          onProductSave,
                                                          onCategorySave,
+                                                         onProductDelete,
+                                                         onCategoryDelete,
                                                          onCancel,
                                                          categories,
                                                      }) => {
     return (
         <>
             {editingProduct && (
-                <Dialog open={!!editingProduct} onOpenChange={onCancel} >
+                <Dialog open={!!editingProduct} onOpenChange={onCancel}>
                     <DialogContent>
                         <DialogHeader>
                             <DialogTitle>{editingProduct.id ? 'Editar Producto' : 'Añadir Producto'}</DialogTitle>
@@ -39,6 +41,13 @@ const ProductDialog: React.FC<ProductDialogProps> = ({
                             onSave={onProductSave}
                             onCancel={onCancel}
                         />
+                        <DialogFooter>
+                            {editingProduct.id > 0 && (
+                                <Button variant="destructive" onClick={() => onProductDelete(editingProduct.id)}>
+                                    Eliminar Producto
+                                </Button>
+                            )}
+                        </DialogFooter>
                     </DialogContent>
                 </Dialog>
             )}
@@ -53,11 +62,18 @@ const ProductDialog: React.FC<ProductDialogProps> = ({
                             onSave={onCategorySave}
                             onCancel={onCancel}
                         />
+                        <DialogFooter>
+                            {editingCategory.id > 0 && (
+                                <Button variant="destructive" onClick={() => onCategoryDelete(editingCategory.id)}>
+                                    Eliminar Categoría
+                                </Button>
+                            )}
+                        </DialogFooter>
                     </DialogContent>
                 </Dialog>
             )}
         </>
-    );
-};
+    )
+}
 
-export default ProductDialog;
+export default ProductDialog

@@ -1,61 +1,72 @@
 [
   {
     "id": 1,
-    "name": "Café solo",
+    "name": "Café solo ☕️",
     "price": 1.50,
     "category": "Cafés",
     "icon": "CoffeeIcon",
     "brand": "El Haido",
     "iconType": "preset",
     "selectedIcon": "CoffeeIcon",
-    "uploadedImage": null
+    "uploadedImage": "/productos/img_2.png"
   },
   {
     "id": 2,
-    "name": "Café con leche",
+    "name": "Café con leche ☕️🥛",
     "price": 2.50,
     "category": "Cafés",
     "icon": "CoffeeIcon",
     "brand": "El Haido",
     "iconType": "preset",
     "selectedIcon": "CoffeeIcon",
-    "uploadedImage": null
+    "uploadedImage": "/productos/img_2.png"
   },
   {
     "id": 3,
-    "name": "Café con leche y hielo",
+    "name": "Café con leche y hielo ☕️🥛🧊",
     "price": 3.00,
     "category": "Cafés",
     "icon": "CoffeeIcon",
     "brand": "El Haido",
     "iconType": "preset",
     "selectedIcon": "CoffeeIcon",
-    "uploadedImage": null
+    "uploadedImage": "/productos/img_2.png"
   },
   {
     "id": 4,
-    "name": "Café con hielo",
+    "name": "Café con hielo ☕️🧊",
     "price": 3.00,
     "category": "Cafés",
     "icon": "CoffeeIcon",
     "brand": "El Haido",
     "iconType": "preset",
     "selectedIcon": "CoffeeIcon",
-    "uploadedImage": null
+    "uploadedImage": "/productos/img_2.png"
   },
   {
     "id": 5,
-    "name": "Botellin tercio volldam",
+    "name": "Café bombón ☕️🍫",
     "price": 2.50,
-    "category": "Cervezas",
-    "icon": "BeerIcon",
+    "category": "Cafés",
+    "icon": "CoffeeIcon",
     "brand": "Voll-damm",
     "iconType": "preset",
     "selectedIcon": "CoffeeIcon",
-    "uploadedImage": null
+    "uploadedImage": "/productos/img_2.png"
   },
   {
     "id": 6,
+    "name": "Café bombón con hielo ☕️🍫🧊",
+    "price": 2.50,
+    "category": "Cafés",
+    "icon": "CoffeeIcon",
+    "brand": "Voll-damm",
+    "iconType": "preset",
+    "selectedIcon": "CoffeeIcon",
+    "uploadedImage": "/productos/img_2.png"
+  },
+  {
+    "id": 34,
     "name": "Botellin tercio estrella damm",
     "price": 3.00,
     "category": "Cervezas",
@@ -63,51 +74,51 @@
     "brand": "Estrella Damm",
     "iconType": "preset",
     "selectedIcon": "CoffeeIcon",
-    "uploadedImage": null
+    "uploadedImage": "/productos/img_2.png"
   },
   {
     "id": 7,
-    "name": "Botellin tercio estrella sin gluten",
+    "name": "Cerveza sin gluten 🍺🌾🚫",
     "price": 3.00,
     "category": "Cervezas",
     "icon": "BeerIcon",
     "brand": "Estrella Damm",
     "iconType": "preset",
     "selectedIcon": "CoffeeIcon",
-    "uploadedImage": null
+    "uploadedImage": "/productos/img_3.png"
   },
   {
     "id": 8,
-    "name": "Botellin tercio estrella sin alcohol",
+    "name": "Botellin sin alcohol 🍺0️⃣0️⃣",
     "price": 3.00,
     "category": "Cervezas",
     "icon": "BeerIcon",
     "brand": "Estrella Damm",
     "iconType": "preset",
-    "selectedIcon": "CoffeeIcon",
-    "uploadedImage": null
+    "selectedIcon": "BeerIcon",
+    "uploadedImage": "/productos/img_1.png"
   },
   {
     "id": 9,
-    "name": "Caña de cerveza",
+    "name": "Caña de cerveza 🍺",
     "price": 3.00,
     "category": "Cervezas",
     "icon": "BeerIcon",
     "brand": "Estrella Damm",
     "iconType": "preset",
-    "selectedIcon": "CoffeeIcon",
-    "uploadedImage": null
+    "selectedIcon": "BeerIcon",
+    "uploadedImage": "/productos/img.png"
   },
   {
     "id": 10,
-    "name": "Caña de cerveza con limón",
+    "name": "Caña de cerveza con limón 🍺🍋",
     "price": 3.00,
     "category": "Cervezas",
     "icon": "BeerIcon",
     "brand": "Estrella Damm",
     "iconType": "preset",
     "selectedIcon": "CoffeeIcon",
-    "uploadedImage": null
+    "uploadedImage": "/productos/img_1.png"
   },
   {
     "id": 11,
@@ -228,7 +239,7 @@
     "brand": "Pringles",
     "iconType": "preset",
     "selectedIcon": "CoffeeIcon",
-    "uploadedImage": null
+    "uploadedImage": "/productos/img_4.png"
   },
   {
     "id": 22,

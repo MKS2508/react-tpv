@@ -9,5 +9,5 @@ export default interface Product {
     icon: React.ReactElement
     iconType: string
     selectedIcon: string
-    uploadedImage: File | null
+    uploadedImage: string | null
 }

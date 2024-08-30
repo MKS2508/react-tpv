@@ -203,7 +203,7 @@ export default function Component() {
                     isSidebarOpen={isSidebarOpen}
                     toggleSidebar={toggleSidebar}
                 />
-                <main className="flex-1 m-6 relative overflow-hidden ">
+                <main className="flex-1 m-4 relative overflow-y-auto ">
                     <AnimatePresence initial={false} custom={getDirection(activeSection, prevSection)}>
                         <motion.div
                             key={activeSection}
@@ -213,10 +213,10 @@ export default function Component() {
                             animate="center"
                             exit="exit"
                             transition={pageTransition}
-                            className="absolute inset-0 rounded-3xl overflow-hidden"
+                            className="absolute inset-0 rounded-3xl overflow-y-auto"
                         >
-                            <Card className="h-full bg-white dark:bg-gray-800 rounded-3xl shadow-xl overflow-hidden">
-                                <CardContent className="p-6 h-full overflow-y-hidden">
+                            <Card className="h-full bg-white dark:bg-gray-800 rounded-3xl shadow-xl overflow-y-auto">
+                                <CardContent className="p-2 mb-0 sm:p-6 h-full overflow-y-hidden">
                                     <SectionHeader menuItems={menuItems} activeSection={activeSection}/>
 
                                     {/*SECTIONS */}
@@ -228,7 +228,7 @@ export default function Component() {
                                     {/* Products Section */}
                                     {activeSection === 'products' && (
                                         <Products products={products} categories={categories}
-                                                  isSidebarOpen={isSidebarOpen}/>
+                                                  />
                                     )}
                                     {activeSection === 'newOrder' && (
                                         <NewOrder  categories={categories}
