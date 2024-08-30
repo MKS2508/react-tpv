@@ -15,6 +15,17 @@ type ProductFormProps = {
     onCancel: () => void
 }
 
+const BlobToBase64 = (file: Blob | null) => {
+    if (file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result as string);
+            reader.onerror = (error) => reject(error);
+        });
+    }
+}
+
 const ProductForm = ({product, onSave, onCancel, categories}: ProductFormProps) => {
 
     const [name, setName] = useState(product?.name || '')
@@ -30,7 +41,7 @@ const ProductForm = ({product, onSave, onCancel, categories}: ProductFormProps) 
         const icon = iconType === 'preset'
             ? iconOptions.find(option => option.value === selectedIcon)?.icon
             : (uploadedImage) ?
-                <img src={URL.createObjectURL(uploadedImage)} alt={name} className="w-6 h-6 object-cover"/> : null
+                <img src={uploadedImage} alt={name} className="w-6 h-6 object-cover"/> : null
         onSave({
             id: product?.id,
             name,
@@ -112,7 +123,7 @@ const ProductForm = ({product, onSave, onCancel, categories}: ProductFormProps) 
                         id="icon-upload"
                         type="file"
                         accept="image/*"
-                        onChange={(e) => setUploadedImage((e.target.files !== null) ? e.target.files[0] : null)}
+                        onChange={(e) => setUploadedImage((e.target.files !== null) ? `data:image/png;base64,${BlobToBase64(e.target.files[0])}` : null)}
                     />
                 </div>
             )}
