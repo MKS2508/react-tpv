@@ -22,6 +22,7 @@ import useStore from "@/store/store.ts";
 import {ThermalPrinterServiceOptions} from "@/models/ThermalPrinter.ts";
 import ProductGrid from "@/components/Product.tsx";
 import OrderTable from "@/components/OrderTable.tsx";
+import {ScrollArea} from "@/components/ui/scroll-area.tsx";
 
 
 
@@ -143,23 +144,24 @@ export default function NewOrder({
     return (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-full w-full">
             <div className="flex flex-col  h-[calc(100%-40px)] w-full">
-                <div
-                    className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 mb-4">
-                    {tables.map(table => (
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-3">
+                    {tables.map((table) => (
                         <Button
                             key={table.id}
                             onClick={() => handleTableChange(table.id)}
-                            className={`h-12 sm:h-16 text-sm sm:text-lg font-semibold relative ${
+                            className={`h-10 sm:h-12 text-xs sm:text-sm font-medium relative ${
                                 selectedOrder?.tableNumber === table.id
-                                    ? 'bg-primary text-primary-foreground'
-                                    : 'bg-secondary text-secondary-foreground dark:bg-gray-900 dark:text-gray-100'
-                            }`}>
-                    <span className="text-center flex items-center justify-center">
-                        {table.name}
-                    </span>
+                                    ? "bg-primary text-primary-foreground"
+                                    : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+                            }`}
+                        >
+                            <span className="text-center flex items-center justify-center">{table.name}</span>
                             <span
-                                className={`absolute top-1 right-1 w-2 h-2 sm:w-3 sm:h-3 rounded-full ${table.available ? 'bg-green-500' : 'bg-red-500'}`}
-                                aria-hidden="true"/>
+                                className={`absolute top-0.5 right-0.5 w-2 h-2 rounded-full ${
+                                    table.available ? "bg-green-500" : "bg-red-500"
+                                }`}
+                                aria-hidden="true"
+                            />
                         </Button>
                     ))}
                 </div>
@@ -183,11 +185,13 @@ export default function NewOrder({
                     </TabsList>
                     {categories.map((category) => (
                         <TabsContent key={category.name} value={category.name}
-                                     className="h-[calc(90%-40px)] overflow-y-auto mt-4 sm:mt-12">
+                                     className="h-[calc(90%-40px)] overflow-y-scroll mt-4 sm:mt-12">
+                            <ScrollArea className="h-[calc(600px-2rem)] pr-4">
                             <ProductGrid
                                 products={products.filter(product => product.category === category.name)}
                                 handleAddToOrder={(product) => selectedOrderId && handleAddToOrder(selectedOrderId, product)}
                             />
+                                </ScrollArea>
                         </TabsContent>
                     ))}
                     <TabsContent value="Recientes" className="h-[calc(100%-40px)] overflow-y-auto mt-4 sm:mt-12">

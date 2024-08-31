@@ -223,7 +223,7 @@ export default function Component() {
 
                                     {/* Home Section */}
                                     {activeSection === 'home' && (
-                                        <Home userName={selectedUser?.name}/>
+                                        <Home userName={selectedUser?.name || 'Usuario desconocido'}/>
                                     )}
                                     {/* Products Section */}
                                     {activeSection === 'products' && (
