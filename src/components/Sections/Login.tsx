@@ -116,7 +116,7 @@ const Login = ({ users, onLogin }: LoginProps) => {
     return (
         <div className="h-screen w-screen bg-cover bg-center flex flex-col items-center justify-center"
              style={{ backgroundImage: "url('/wallpaper.jpeg')" }}>
-            <img src="/src/assets/logo.svg" alt="El Haido Logo"
+            <img src="/logo.svg" alt="El Haido Logo"
                  className="w-64 h-64 mb-4 flex items-center justify-center text-center"/>
 
             <motion.div
