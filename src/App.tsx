@@ -52,8 +52,8 @@ export default function Component() {
     useEffect(() => {
         if (users.length === 0) {
             setUsers([
-                { id: 1, name: 'Germán', profilePicture: '/panxo.svg', pin: "1234" },
-                { id: 2, name: 'Marta', profilePicture: '/nuka.svg', pin: "1234" }
+                { id: 1, name: 'Germán', profilePicture: '/panxo.svg', pin: "1111", pinnedProductIds: [1,2,3,4,5,6] },
+                { id: 2, name: 'Marta', profilePicture: '/nuka.svg', pin: "1234" , pinnedProductIds: [1,2,3] }
             ])
         }
 
@@ -65,18 +65,22 @@ export default function Component() {
                 {id: 3, name: 'Mesa 3', available: true},
                 {id: 4, name: 'Mesa 4', available: true},
                 {id: 5, name: 'Mesa 5', available: true},
+                {id: 6, name: 'Mesa 6', available: true},
+                {id: 7, name: 'Mesa 7', available: true},
+                {id: 8, name: 'Mesa 8', available: true},
+                {id: 9, name: 'Mesa 9', available: true},
             ])
         }
 
         if (categories.length === 0) {
             setCategories([
-                {id: 1, name: 'Licores', description: 'Bebidas alcohólicas'},
-                {id: 2, name: 'Golosinas', description: 'Dulces y chucherías'},
-                {id: 3, name: 'Refrescos', description: 'Bebidas sin alcohol'},
-                {id: 4, name: 'Cafés', description: 'Variedades de café'},
-                {id: 5, name: 'Cervezas', description: 'Cervezas y similares'},
-                {id: 6, name: 'Tapas', description: 'Pequeñas porciones de comida'},
-                {id: 7, name: 'Postres', description: 'Dulces para después de la comida'},
+                {id: 1, name: 'Licores 🥃', description: 'Bebidas alcohólicas'},
+                {id: 2, name: 'Golosinas 🍬🍿', description: 'Dulces y chucherías'},
+                {id: 3, name: 'Refrescos 🥤', description: 'Bebidas sin alcohol'},
+                {id: 4, name: 'Cafés ☕️', description: 'Variedades de café'},
+                {id: 5, name: 'Cervezas 🍺', description: 'Cervezas y similares'},
+                {id: 6, name: 'Tapas 🍴', description: 'Pequeñas porciones de comida'},
+                {id: 7, name: 'Postres 🍨', description: 'Dulces para después de la comida'},
             ])
         }
 

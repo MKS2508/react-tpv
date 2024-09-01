@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useCallback, useEffect, useState} from 'react'
 import {motion, AnimatePresence, Variants} from 'framer-motion'
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
@@ -83,6 +83,28 @@ const Login = ({ users, onLogin }: LoginProps) => {
         hidden: { opacity: 0, y: 20 },
         visible: { opacity: 1, y: 0 }
     }
+    const handleKeyPress = useCallback((event: KeyboardEvent) => {
+        if (!selectedUser) return;
+
+        const key = event.key;
+        if (/^[0-9]$/.test(key)) {
+            event.preventDefault();
+            handlePinInput(key);
+        } else if (key === 'Backspace') {
+            event.preventDefault();
+            handlePinDelete();
+        } else if (key === 'Enter') {
+            event.preventDefault();
+            handlePinSubmit();
+        }
+    }, [selectedUser, handlePinInput, handlePinDelete, handlePinSubmit]);
+
+    useEffect(() => {
+        window.addEventListener('keydown', handleKeyPress);
+        return () => {
+            window.removeEventListener('keydown', handleKeyPress);
+        };
+    }, [handleKeyPress]);
 
     const renderNumpad = () => {
         const digits = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'delete', '0']

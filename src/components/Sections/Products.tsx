@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog"
-import { PlusIcon, FilterIcon } from 'lucide-react'
+import { PlusIcon, FilterIcon, Star } from 'lucide-react'
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
 import ProductDialog from '@/components/ProductDialog'
@@ -12,6 +12,7 @@ import Product from "@/models/Product"
 import { motion, AnimatePresence } from 'framer-motion'
 import { Badge } from "@/components/ui/badge"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
+import useStore from "@/store/store.ts"
 
 interface ProductsProps {
     products: Product[]
@@ -31,6 +32,8 @@ export default function Component({ products, categories }: ProductsProps) {
     const [isCategoryDialogOpen, setIsCategoryDialogOpen] = useState(false)
     const [deleteConfirmation, setDeleteConfirmation] = useState<{ type: 'product' | 'category', id: number } | null>(null)
     const [isFilterSheetOpen, setIsFilterSheetOpen] = useState(false)
+
+    const {users, selectedUser, setUsers, setSelectedUser} = useStore()
 
     const handleAddProduct = (newProduct: Product) => {
         setProducts([...productList, { ...newProduct, id: productList.length + 1 }])
@@ -146,6 +149,24 @@ export default function Component({ products, categories }: ProductsProps) {
         }
     }
 
+    const toggleFavorite = (productId: number) => {
+        if (selectedUser) {
+            const updatedUsers = users.map(user => {
+                if (user.id === selectedUser.id) {
+                    const favProductIds = user.pinnedProductIds || []
+                    if (favProductIds.includes(productId)) {
+                        return { ...user, pinnedProductIds: favProductIds.filter(id => id !== productId) }
+                    } else {
+                        return { ...user, pinnedProductIds: [...favProductIds, productId] }
+                    }
+                }
+                return user
+            })
+            setUsers(updatedUsers)
+            setSelectedUser(updatedUsers.find(user => user.id === selectedUser.id)!)
+        }
+    }
+
     return (
         <div className="flex flex-col space-y-6 p-4 md:flex-row md:space-x-6 md:space-y-0">
             {/* Products */}
@@ -174,7 +195,6 @@ export default function Component({ products, categories }: ProductsProps) {
                                         {availableCategories.map((category) => (
                                             <div key={category} className="flex items-center space-x-2 bg-red">
                                                 <Checkbox
-                                                    // add border width 3 px and rounded 3xl and color red to the checkbox
                                                     className="border-red-500"
                                                     id={`category-${category}`}
                                                     checked={selectedCategories.includes(category)}
@@ -260,11 +280,29 @@ export default function Component({ products, categories }: ProductsProps) {
                                     transition={{ duration: 0.3 }}
                                 >
                                     <Card
-                                        className="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 hover:shadow-md transition-shadow duration-200 cursor-pointer"
+                                        className="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 hover:shadow-md transition-shadow duration-200 cursor-pointer relative"
                                         onClick={() => setEditingProduct(product)}
                                     >
                                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                             <CardTitle className="text-sm font-medium truncate">{product.name}</CardTitle>
+                                            <Button
+                                                variant="ghost"
+                                                size="sm"
+                                                className="absolute top-2 right-2 p-0"
+                                                onClick={(e) => {
+                                                    e.stopPropagation()
+                                                    toggleFavorite(product.id)
+                                                }}
+                                            >
+                                                <Star
+                                                    className={`h-5 w-5 ${
+                                                        selectedUser?.pinnedProductIds?.includes(product.id)
+                                                            ? 'text-yellow-400 fill-yellow-400'
+                                                            : 'text-gray-400'
+                                                    }`}
+                                                />
+                                                <span className="sr-only">Add to favorites</span>
+                                            </Button>
                                         </CardHeader>
                                         <CardContent>
                                             <div className="flex items-center space-x-2">

@@ -20,18 +20,6 @@ const ProductGrid: React.FC<ProductGridProps> = ({
                     product={product}
                     handleAddToOrder={handleAddToOrder}
                 />
-            ))}            {products.map((product) => (
-                <ProductButton
-                    key={product.id}
-                    product={product}
-                    handleAddToOrder={handleAddToOrder}
-                />
-            ))}            {products.map((product) => (
-                <ProductButton
-                    key={product.id}
-                    product={product}
-                    handleAddToOrder={handleAddToOrder}
-                />
             ))}
         </div>
     </div>
