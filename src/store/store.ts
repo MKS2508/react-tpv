@@ -5,6 +5,9 @@ import {ThermalPrinterServiceOptions} from "@/models/ThermalPrinter.ts";
 import Category from "@/models/Category.ts";
 import Product from "@/models/Product.ts";
 import ITable from "@/models/Table.ts";
+import iconOptions from "@/assets/utils/icons/iconOptions.ts";
+import {BeerIcon} from "lucide-react";
+import React from "react";
 
 interface AppState {
     // 1. The current available users
@@ -50,6 +53,8 @@ interface AppState {
     handleTableChange: (tableId: number) => void
     handleCompleteOrder: (order: Order) => void
     closeOrder: (orderId: number) => void
+    selectedLanguage: string
+    setSelectedLanguage: (language: string) => void
 }
 
 const useStore = create<AppState>((set) => ({
@@ -61,8 +66,34 @@ const useStore = create<AppState>((set) => ({
     tables: [],
     categories: [],
     products: [],
-    orderHistory: [],
+    orderHistory: [{
+        id: 1,
+        date: '2023-03-01T00:00:00.000Z',
+        total: 100,
+        change: 0,
+        totalPaid: 0,
+        itemCount: 0,
+        tableNumber: 0,
+        paymentMethod: 'efectivo',
+        ticketPath: '',
+        status: 'paid',
+        items: [{
+            id: 1,
+            name: 'Café solo ☕️',
+            quantity: 1,
+            price: 10,
+            category: 'Cafés ☕️',
+            brand: 'El Haido',
+            icon: React.createElement(iconOptions.find(option => option.value === 'CoffeeIcon')?.icon || BeerIcon),
+            iconType: 'preset',
+            selectedIcon: '',
+            uploadedImage: null,
+        }]
+
+    }],
+
     paymentMethod: 'efectivo',
+    selectedLanguage: 'es',
     cashAmount: '',
     showTicketDialog: false,
     setUsers: (users) => set({ users }),
@@ -195,6 +226,7 @@ const useStore = create<AppState>((set) => ({
             }
         }
     }),
+    setSelectedLanguage: (language) => set({ selectedLanguage: language }),
 
     handleCompleteOrder: (order) => set((state) => {
         const completedOrder: Order = {
@@ -228,4 +260,5 @@ const useStore = create<AppState>((set) => ({
         }
     }),
 }))
+
 export default useStore
