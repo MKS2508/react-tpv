@@ -26,16 +26,16 @@ export default class ProductService implements IProducService {
 
     async getProductsByIdArray(ids: number[], products: Product[]): Promise<Product[]> {
         return new Promise((resolve, reject) => {
-            const productsById = ids.map(id => products.find(product => product.id === id))
-            if (productsById.every(product => product)) {
-                resolve(productsById)
+            const productsById = ids.map(id => products.find(product => product.id === id)) || []
+            if (productsById && productsById.every(product => product)) {
+                resolve(productsById as Product[])
             } else {
                 reject(new Error("Product not found"))
             }
         })
     }
     async clearDuplicates(products: Product[]): Promise<Product[]> {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             const uniqueProducts = products.filter((product, index) => products.findIndex(p => p.id === product.id) === index)
             resolve(uniqueProducts)
         })
